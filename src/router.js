@@ -12,11 +12,8 @@ export default new VueRouter({
         { path: '/create', component: () => import('./components/trip/Create')},
         { path: '/details', component: () => import('./components/trip/Details')},
         { path: '/edit', component: () => import('./components/trip/Edit')},
+        { path: '/list', component: () => import('./components/trip/TripList')},
+        { path: '*', component: () => import('./components/shared/NotFound')},
 
-
-
-        // {
-        //     path: '*', component: NotFound
-        // }
     ]
 });
