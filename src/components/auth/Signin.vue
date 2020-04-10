@@ -1,48 +1,91 @@
 <template>
   <div class="container-fluid">
-  <div class="row no-gutter">
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-    <div class="col-md-8 col-lg-6">
-      <div class="login d-flex align-items-center py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Welcome back!</h3>
-              <form >
-                <div class="form-label-group">
-                  <input   name="email" type="email" id="inputEmail" class="form-control"
-                    placeholder="Email address" required>
-                  <label for="inputEmail">Email address</label>
-                </div>
+    <div class="row no-gutter">
+      <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+      <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9 col-lg-8 mx-auto">
+                <h3 class="login-heading mb-4">Welcome back!</h3>
+                <form @submit.prevent="onLogin">
+                  <div class="form-label-group">
+                    <input
+                      v-model="email"
+                      name="email"
+                      type="email"
+                      id="inputEmail"
+                      class="form-control"
+                      placeholder="Email address"
+                      required
+                    />
+                    <label for="inputEmail">Email address</label>
+                  </div>
 
-                <div class="form-label-group">
-                  <input   name="password"  type="password" id="inputPassword" class="form-control"
-                    placeholder="Password" required>
-                  <label for="inputPassword">Password</label>
-                </div>
-                <button  
-                  class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                  type="submit">Sign in</button>
-                <div class="text-center">
-                  <p>Don't have an account? <button class="btn btn-link" type="button"  >Sign Up</button></p>
-                </div>
-              </form>
+                  <div class="form-label-group">
+                    <input
+                      v-model="password"
+                      name="password"
+                      type="password"
+                      id="inputPassword"
+                      class="form-control"
+                      placeholder="Password"
+                      required
+                    />
+                    <label for="inputPassword">Password</label>
+                  </div>
+                  <button
+                    class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                    type="submit"
+                  >Sign in</button>
+                  <div class="text-center">
+                    <p>
+                      Don't have an account?
+                      <button class="btn btn-link" type="button">Sign Up</button>
+                    </p>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 </template>
 
 <script>
-
-
+import authAxios from "@/axios-auth";
 export default {
-    name: 'Signin'
-}
+  name: "Signin",
+  data: function() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    onLogin() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+        returnSecureToken: true
+      };
+       
+      authAxios
+        .post("/accounts:signInWithPassword", payload)
+        .then(res => {
+          const { idToken, localId } = res.data;
+          localStorage.setItem("token", idToken);
+          localStorage.setItem("userId", localId);
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -57,7 +100,7 @@ export default {
 }
 
 .bg-image {
-  background-image: url('auth-images/Mt-Cook-New-Zealand.jpg');
+  background-image: url("auth-images/Mt-Cook-New-Zealand.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -78,14 +121,14 @@ export default {
   margin-bottom: 1rem;
 }
 
-.form-label-group>input,
-.form-label-group>label {
-  padding: var(--input-padding-y) var(--input-padding-x);;
-  
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+
   border-radius: 1rem;
 }
 
-.form-label-group>label {
+.form-label-group > label {
   position: relative;
   top: 0;
   left: 0;
@@ -98,8 +141,8 @@ export default {
   cursor: text;
   /* Match the input under the label */
   border: 1px solid transparent;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
+  border-radius: 0.25rem;
+  transition: all 0.1s ease-in-out;
 }
 
 .form-label-group input::-webkit-input-placeholder {
@@ -127,7 +170,7 @@ export default {
   padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
-.form-label-group input:not(:placeholder-shown)~label {
+.form-label-group input:not(:placeholder-shown) ~ label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
@@ -138,7 +181,7 @@ export default {
 -------------------------------------------------- */
 
 @supports (-ms-ime-align: auto) {
-  .form-label-group>label {
+  .form-label-group > label {
     display: none;
   }
   .form-label-group input::-ms-input-placeholder {
@@ -149,15 +192,12 @@ export default {
 /* Fallback for IE
 -------------------------------------------------- */
 
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
-  .form-label-group>label {
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .form-label-group > label {
     display: none;
   }
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
 }
-
-
 </style>
