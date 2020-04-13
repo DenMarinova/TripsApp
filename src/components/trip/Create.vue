@@ -33,7 +33,7 @@
                     <label for="imagePath">Image URL</label>
 
                     <div class="card" style="width: 18rem;">
-                      <img src=" " class="card-img-top" alt="..." />
+                      <img   class="card-img-top" alt="..." />
                     </div>
                   </div>
 
