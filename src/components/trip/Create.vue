@@ -8,7 +8,7 @@
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
                 <h3 class="login-heading mb-4">Create new adventure!</h3>
-                <form>
+                <form  @submit.prevent="create">
                   <div class="form-label-group">
                     <input
                       name="name"
@@ -16,40 +16,57 @@
                       id="inputName"
                       class="form-control"
                       placeholder="name"
-                      required
+                      v-model="name"
+                      @blur="$v.name.$touch"
                     />
-                    <label for="inputName">Name your next challenge</label>
+                    <label for="inputName">
+                      Name your next challenge
+                      <template v-if="$v.name.$error">
+                        <span v-if="!$v.name.required">required!</span>
+                      </template>
+                    </label>
                   </div>
 
                   <div class="form-label-group">
                     <input
-                      required
                       type="text"
                       id="imagePath"
                       name="imagePath"
                       class="form-control"
                       placeholder="http://..."
+                      v-model="imagePath"
+                      @blur="$v.imagePath.$touch"
                     />
-                    <label for="imagePath">Image URL</label>
+                    <label for="imagePath">Image URL
+                      <template v-if="$v.imagePath.$error">
+                        <span v-if="!$v.imagePath.required">required!</span>
+                      </template>
+                    </label>
 
                     <div class="card" style="width: 18rem;">
-                      <img   class="card-img-top" alt="..." />
+                      <img :src="imagePath" class="card-img-top" alt="..." />
                     </div>
                   </div>
 
                   <div class="form-label-group">
                     <textarea
-                      required
                       type="text"
                       id="description"
                       class="form-control"
                       name="description"
                       rows="6"
+                      v-model="description"
+                      @blur="$v.description.$touch"
                     ></textarea>
-                    <label for="description">Short description</label>
+                    <label for="description">Short description
+                      <template v-if="$v.description.$error">
+                        <span v-if="!$v.description.required">required!</span>
+                      <span v-if="!$v.description.minLength"> should be longer than 10 symbols!</span> 
+                      </template>
+                    </label>
                   </div>
 
-                  <button
+                  <button :disabled="$v.$invalid"
                     class="btn btn-lg btn-dark btn-block btn-login text-uppercase font-weight-bold mb-2"
                     type="submit"
                   >Create</button>
@@ -64,10 +81,58 @@
 </template>
 
 <script>
-export default {};
+import { validationMixin } from "vuelidate";
+import { required, minLength } from "vuelidate/lib/validators";
+import axiosDb from '@/axios-database';
+export default {
+  name: "Create",
+  mixins: [validationMixin],
+  data: function() {
+    return {
+      name: "",
+      imagePath: "",
+      description: ""
+    };
+  },
+  validations: {
+    name: {
+      required, 
+    },
+    imagePath: {
+      required
+    },
+    description: {
+      required,
+      minLength: minLength(10)
+    }
+  },
+   methods: {
+    create() {
+      const payload = {
+        name: this.name,
+        imagePath: this.imagePath,
+        description: this.description
+      };
+       
+      axiosDb.post("/trips.json", payload)
+        .then(res => {
+          console.log(res);
+          
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+};
 </script>
 
 <style scoped>
+span{
+  color: red
+}
+
 :root {
   --input-padding-x: 1.5rem;
   --input-padding-y: 1rem;
