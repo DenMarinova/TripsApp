@@ -9,14 +9,17 @@
       </div>
     </div>
     <hr />
-    <div class="row">
-      <div clas="col-xl-3 col-md-6 mb-4">
-        <router-link style="cursor: pointer" class="nav-link" to="/details">
+    <div  class="row">
+      <div v-for="trip in trips" :key="trip.tripID"
+        clas="col-xl-3 col-md-6 mb-4 test">
+        <router-link 
+        
+        style="cursor: pointer" class="nav-link" to="/details">
           <div class="card border-0 shadow">
-            <img src class="card-img-top" alt="..." />
+            <img v-bind:src="trip.imagePath" class="card-img-top" alt="..." />
             <div class="card-body text-center">
-              <h5 class="card-title mb-0"></h5>
-              <div class="card-text text-black-50"></div>
+              <h5 class="card-title mb-0">{{trip.name}}</h5>
+              <div class="card-text text-black-50">{{trip.description}}</div>
             </div>
           </div>
         </router-link>
@@ -43,14 +46,8 @@ export default {
 </script>
 
 <style scoped>
-li {
-  float: left;
-  list-style: none;
-  width: 400px;
-  margin: 0px;
-}
-li:nth-child(even) {
-  margin-right: 0px;
+.test {
+  width: 40%;
 }
 
 h5 {

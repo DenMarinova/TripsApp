@@ -9,17 +9,16 @@ export default {
     methods: {
         getAllTrips() {
             axiosDb.get(`trips.json`)
-            .then(res => { 
-                res = res.data;
-                for (const tripID of res) {
+            .then(res => {  
+                const tripRes = res.data;
+                for (const tripID in tripRes) {
                     this.trips.push( {
                         tripID,
-                        ...res[tripID]
+                        ...tripRes[tripID]
                     })
                 }
             })
             .catch(err => console.error(err))
-        }
-
+        } 
     }
 }
