@@ -21,23 +21,5 @@ export default {
             .catch(err => console.error(err))
         }
 
-        // async getAllTrips() {
-        //     try {
-        //         const res = await axiosDb.get(`trips.json`);
-        //         const allTripsRes = res.data;
-        //         console.log(allTripsRes);
-                
-        //         for (const tripId in allTripsRes) {
-        //           this.trips.push({
-        //             tripId,
-        //             ...allTripsRes[tripId]
-        //           });
-                  
-        //         }
-                
-        //     } catch(err) {
-        //         console.log(err);
-        //     }
-        // }
     }
 }
