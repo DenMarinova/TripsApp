@@ -1,5 +1,5 @@
 <template>
-  <div  >
+  <div>
     <div class="row">
       <div class="col-md-4 mt-4 mx-auto">
         <div class="card profile-card-5">
@@ -14,10 +14,10 @@
               >Done That</button>
             <hr>-->
             <div>
-              <a
+              <router-link
                 class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
-              >Edit</a>
-
+                to="/details/edit"
+              >Edit</router-link>
               <button
                 class="btn btn-lg btn-danger btn-block text-uppercase font-weight-bold mb-2"
                 type="button"

@@ -64,8 +64,7 @@
                       <span v-if="!$v.description.minLength"> should be longer than 10 symbols!</span> 
                       </template>
                     </label>
-                  </div>
-
+                  </div> 
                   <button :disabled="$v.$invalid"
                     class="btn btn-lg btn-dark btn-block btn-login text-uppercase font-weight-bold mb-2"
                     type="submit"

@@ -26,7 +26,20 @@
 </template>
 
 <script>
-export default {};
+import tripsMixin from '@/mixins/trip-mixin';
+
+export default {
+  data: function() {
+    return {
+
+    }
+  },
+  name: 'List',
+  created() {
+    this.getAllTrips()
+  },
+  mixins: [tripsMixin]
+};
 </script>
 
 <style scoped>
