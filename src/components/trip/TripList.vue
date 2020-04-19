@@ -9,17 +9,14 @@
       </div>
     </div>
     <hr />
-    <div  class="row">
-      <div v-for="trip in trips" :key="trip.tripID"
-        clas="col-xl-3 col-md-6 mb-4 test">
-        <router-link 
-        
-        style="cursor: pointer" class="nav-link" to="/details">
+    <div class="card-columns">
+      <div v-for="trip in trips" :key="trip.tripID" clas="card">
+        <router-link style="cursor: pointer" class="nav-link" to="/details">
           <div class="card border-0 shadow">
             <img v-bind:src="trip.imagePath" class="card-img-top" alt="..." />
-            <div class="card-body text-center">
-              <h5 class="card-title mb-0">{{trip.name}}</h5>
-              <div class="card-text text-black-50">{{trip.description}}</div>
+            <div class="card-body ">
+              <h5 class="card-title text-center mb-0">{{trip.name}}</h5>
+              <div class="card-text text-black-50">{{trip.shortDescription}}</div>
             </div>
           </div>
         </router-link>
@@ -29,25 +26,30 @@
 </template>
 
 <script>
-import tripsMixin from '@/mixins/trip-mixin';
+import tripsMixin from "@/mixins/trip-mixin";
 
 export default {
   data: function() {
-    return {
-
-    }
+    return {};
   },
-  name: 'List',
+  name: "List",
   created() {
-    this.getAllTrips()
+    this.getAllTrips();
   },
   mixins: [tripsMixin]
 };
 </script>
 
 <style scoped>
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .test {
-  width: 40%;
+  flex-basis: 25%;
 }
 
 h5 {

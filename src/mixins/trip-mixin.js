@@ -11,9 +11,11 @@ export default {
             axiosDb.get(`trips.json`)
             .then(res => {  
                 const tripRes = res.data;
-                for (const tripID in tripRes) {
+                
+                for (const tripID in tripRes) {  
                     this.trips.push( {
-                        tripID,
+                        tripID, 
+                        shortDescription: tripRes[tripID].description.substr(0, 70) + '...',
                         ...tripRes[tripID]
                     })
                 }
