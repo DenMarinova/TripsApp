@@ -110,14 +110,13 @@ export default {
       const payload = {
         name: this.name,
         imagePath: this.imagePath,
-        description: this.description
+        description: this.description,
+        creator: localStorage.getItem('userEmail')
       };
        
       axiosDb.post("/trips.json", payload)
-        .then(res => {
-          console.log(res);
-          
-          this.$router.push("/");
+        .then(() => { 
+          this.$router.push("/list");
         })
         .catch(err => {
           console.error(err);

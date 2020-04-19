@@ -4,31 +4,31 @@
       <div class="col-md-8 mt-4 mx-auto">
         <div class="card profile-card-5">
           <div class="card-img-block">
-            <img v-bind:src="trips[0].imagePath" class="card-img-top"    />
+            <img :src="trips[0].imagePath" :alt="trips[0].name" class="card-img-top" />
           </div>
           <div class="card-body pt-0">
             <h5 class="card-title">{{trips[0].name}}</h5>
             <p class="card-text">{{trips[0].description}}</p>
 
-             <div class="row justify-content-md-center">
-    <div class="col-sm-4">
-       <router-link
-                class="btn btn-lg btn-info btn-block text-uppercase font-weight-bold mb-2"
-                to="/details/edit"
-              >Edit</router-link>
-    </div>
-    <div class="col-sm-4">
-      <button
-                class="btn btn-lg btn-danger btn-block text-uppercase font-weight-bold mb-2"
-                type="button"
-              >Delete</button>
-    </div>
-    </div>
+            <div class="row justify-content-md-center">
+              <div class="col-sm-4">
+                <router-link :to="{name: 'edit', params: {id: this.id}}"
+                  class="btn btn-lg btn-info btn-block text-uppercase font-weight-bold mb-2"
+                  
+                >Edit</router-link>
+              </div>
+              <div class="col-sm-4">
+                <button
+                  class="btn btn-lg btn-danger btn-block text-uppercase font-weight-bold mb-2"
+                  type="button"
+                >Delete</button>
+              </div>
+            </div>
 
             <!-- <button class="btn btn-lg btn-success  btn-block  text-uppercase font-weight-bold mb-2" type="button"
               >Done That</button>
             <hr>-->
-             
+
             <!-- <div ">
             <button class="btn btn-lg btn-danger btn-login btn-block  text-uppercase font-weight-bold mb-2" type="button"
             >Must Do</button>
@@ -47,14 +47,14 @@ export default {
   data: function() {
     return {};
   },
-  name: 'Details',
+  name: "Details",
   props: {
     id: {
       type: String,
       required: true
     }
   },
-   created() {
+  created() {
     this.getTripById(this.id);
   },
   mixins: [tripsMixin]

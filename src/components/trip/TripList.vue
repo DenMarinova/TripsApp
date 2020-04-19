@@ -2,13 +2,13 @@
   <div>
     
       <div clas="row text-center">
-        <div class="col-4">
+        <div class="col-3">
         <router-link to="/create"
           class="btn btn-lg btn-success btn-block  text-uppercase font-weight-bold mb-2"
           type="submit"
         >Create new adventure</router-link>
         </div>
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       
     </div>
     <hr />

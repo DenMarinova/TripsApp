@@ -10,7 +10,7 @@
                 <h3 class="login-heading mb-4">Welcome back!</h3>
                 <form @submit.prevent="onLogin">
                   <div class="form-label-group">
-                    <input 
+                    <input
                       name="email"
                       type="email"
                       id="inputEmail"
@@ -19,17 +19,17 @@
                       v-model="email"
                       @blur="$v.email.$touch"
                     />
-                    <label for="inputEmail">Email address
+                    <label for="inputEmail">
+                      Email address
                       <template v-if="$v.email.$error">
-                      <span v-if="!$v.email.required"> is required!</span>
-                      <span v-if="!$v.email.email">is invalid!</span>
-                    </template>
+                        <span v-if="!$v.email.required">is required!</span>
+                        <span v-if="!$v.email.email">is invalid!</span>
+                      </template>
                     </label>
-                    
                   </div>
 
                   <div class="form-label-group">
-                    <input 
+                    <input
                       name="password"
                       type="password"
                       id="inputPassword"
@@ -38,23 +38,23 @@
                       v-model="password"
                       @blur="$v.password.$touch"
                     />
-                    <label for="inputPassword">Password
-                       <template v-if="$v.password.$error">
-                      <span v-if="!$v.password.required"> is required!</span>
-                      <span v-if="!$v.password.minLength"> should be longer than 5 symbols!</span> 
-                    </template>
+                    <label for="inputPassword">
+                      Password
+                      <template v-if="$v.password.$error">
+                        <span v-if="!$v.password.required">is required!</span>
+                        <span v-if="!$v.password.minLength">should be longer than 5 symbols!</span>
+                      </template>
                     </label>
-                     
                   </div>
                   <button
-                  :disabled="$v.$invalid"
+                    :disabled="$v.$invalid"
                     class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                     type="submit"
                   >Sign in</button>
                   <div class="text-center">
                     <p>
                       Don't have an account?
-                      <button  class="btn btn-link" type="button">Sign Up</button>
+                      <button class="btn btn-link" type="button">Sign Up</button>
                     </p>
                   </div>
                 </form>
@@ -69,8 +69,8 @@
 
 <script>
 import authAxios from "@/axios-auth";
-import { validationMixin } from 'vuelidate';
-import {required,email, minLength } from 'vuelidate/lib/validators'
+import { validationMixin } from "vuelidate";
+import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   name: "Signin",
   mixins: [validationMixin],
@@ -86,7 +86,7 @@ export default {
       email
     },
     password: {
-      required, 
+      required,
       minLength: minLength(6)
     }
   },
@@ -97,7 +97,8 @@ export default {
         password: this.password,
         returnSecureToken: true
       };
-       
+      localStorage.setItem("userEmail", payload.email);
+
       authAxios
         .post("/accounts:signInWithPassword", payload)
         .then(res => {
@@ -115,8 +116,8 @@ export default {
 </script>
 
 <style scoped>
-span{
-  color: red
+span {
+  color: red;
 }
 :root {
   --input-padding-x: 1.5rem;

@@ -23,6 +23,11 @@ export default new VueRouter({
             component: () => import( /* webpackChunkName: "Create" */ './components/trip/Create')
         }, 
         {
+            path: '/edit/:id',
+            name: 'edit',
+            component: () => import( /* webpackChunkName: "Create" */ './components/trip/Edit')
+        }, 
+        {
             path: '/list',
             props:true,
             component: () => import( /* webpackChunkName: "TripList" */ './components/trip/TripList'),
