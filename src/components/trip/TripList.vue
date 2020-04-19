@@ -1,17 +1,20 @@
 <template>
   <div>
-    <div class="row mx-3 my-3">
-      <div clas="text-center">
-        <a
-          class="btn btn-lg btn-success btn-block btn-login text-uppercase font-weight-bold mb-2"
+    
+      <div clas="row text-center">
+        <div class="col-4">
+        <router-link to="/create"
+          class="btn btn-lg btn-success btn-block  text-uppercase font-weight-bold mb-2"
           type="submit"
-        >Create new adventure</a>
-      </div>
+        >Create new adventure</router-link>
+        </div>
+        <router-view></router-view>
+      
     </div>
     <hr />
     <div class="card-columns">
       <div v-for="trip in trips" :key="trip.tripID" clas="card">
-        <router-link style="cursor: pointer" class="nav-link" to="/details">
+        <router-link style="cursor: pointer" class="nav-link" :to="'/list/details/' + trip.tripID">
           <div class="card border-0 shadow">
             <img v-bind:src="trip.imagePath" class="card-img-top" alt="..." />
             <div class="card-body ">
@@ -64,6 +67,15 @@ h5 {
   letter-spacing: 0.05rem;
   padding: 0.75rem 1rem;
   border-radius: 2rem;
-  border-color: black;
+  border-color: #e68a00;
+  width: 20em;
+  margin: 1em;
+}
+.btn {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  margin: 1em 0em;
 }
 </style>

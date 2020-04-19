@@ -21,6 +21,14 @@ export default {
                 }
             })
             .catch(err => console.error(err))
-        } 
+        },
+        getTripById(id) {
+            axiosDb.get(`trips/${id}.json`)
+            .then(res => {
+                this.trips.push(res.data); 
+            })
+            .catch(err => console.error(err));
+
+        }
     }
 }
