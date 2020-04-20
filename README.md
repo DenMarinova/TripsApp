@@ -44,6 +44,9 @@ Vue Router. Navigate with router links, nested routes, lazy loading, redirects, 
 ## UI/UX
 Bootstrap for good UI and UX
 
+## Deployment
+https://denmarinova.github.io/
+
 ## Project setup
 ```
 npm install
