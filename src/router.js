@@ -1,8 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './components/shared/Home'
+import globalStore from '@/store/global';
+
 
 Vue.use(VueRouter);
+
+function authGuard(to, from, next) {
+    if (!globalStore.isLogged) {
+        next('/signin');
+    } else {
+        next();
+    }
+}
 
 export default new VueRouter({
     mode: 'history',
@@ -20,22 +30,26 @@ export default new VueRouter({
         },
         {
             path: '/create',
-            component: () => import( /* webpackChunkName: "Create" */ './components/trip/Create')
-        }, 
+            component: () => import( /* webpackChunkName: "Create" */ './components/trip/Create'),
+            beforeEnter: authGuard
+        },
         {
             path: '/edit/:id',
             name: 'edit',
-            component: () => import( /* webpackChunkName: "Create" */ './components/trip/Edit')
-        }, 
+            props: true,
+            component: () => import( /* webpackChunkName: "Create" */ './components/trip/Edit'),
+            beforeEnter: authGuard
+        },
         {
             path: '/list',
-            props:true,
+            props: true,
             component: () => import( /* webpackChunkName: "TripList" */ './components/trip/TripList'),
-            children: [
-                {
+            beforeEnter: authGuard,
+            children: [{
                     path: 'details/:id',
                     component: () => import( /* webpackChunkName: "Details" */ './components/trip/Details'),
-                    props: true
+                    props: true,
+                    beforeEnter: authGuard
                 }
 
             ]

@@ -61,10 +61,11 @@
   </div>
 </template>
 
-<script>
-import authAxios from "@/axios-auth";
+<script> 
 import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators"; 
+import authMixin from '../../mixins/auth-mixin'
+
 export default {
   name: "Signup",
   data: function() {
@@ -73,7 +74,7 @@ export default {
       password: ""
     };
   },
-  mixins: [validationMixin],
+  mixins: [validationMixin, authMixin],
   validations: {
     email: {
       required,
@@ -92,17 +93,7 @@ export default {
         returnSecureToken: true
       };
 
-      authAxios
-        .post("/accounts:signUp", payload)
-        .then(res => {
-          const { idToken, localId } = res.data;
-          localStorage.setItem("token", idToken);
-          localStorage.setItem("userId", localId);
-          this.$router.push("/");
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      this.signup(payload);
     }
   }
 };

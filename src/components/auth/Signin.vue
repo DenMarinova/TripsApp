@@ -67,13 +67,14 @@
   </div>
 </template>
 
-<script>
-import authAxios from "@/axios-auth";
+<script> 
 import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators"; 
+import authMixin from '../../mixins/auth-mixin'
+
 export default {
   name: "Signin",
-  mixins: [validationMixin],
+  mixins: [validationMixin, authMixin],
   data: function() {
     return {
       email: "",
@@ -90,6 +91,7 @@ export default {
       minLength: minLength(6)
     }
   },
+   
   methods: {
     onLogin() {
       const payload = {
@@ -97,19 +99,9 @@ export default {
         password: this.password,
         returnSecureToken: true
       };
-      localStorage.setItem("userEmail", payload.email);
-
-      authAxios
-        .post("/accounts:signInWithPassword", payload)
-        .then(res => {
-          const { idToken, localId } = res.data;
-          localStorage.setItem("token", idToken);
-          localStorage.setItem("userId", localId);
-          this.$router.push("/");
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      // localStorage.setItem("userEmail", payload.email);
+      this.signin(payload)
+      
     }
   }
 };

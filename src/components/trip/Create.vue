@@ -8,7 +8,7 @@
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
                 <h3 class="login-heading mb-4">Create new adventure!</h3>
-                <form  @submit.prevent="create">
+                <form  @submit.prevent="onCreate">
                   <div class="form-label-group">
                     <input
                       name="name"
@@ -81,11 +81,13 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, minLength } from "vuelidate/lib/validators";
-import axiosDb from '@/axios-database';
+import { required, minLength } from "vuelidate/lib/validators"; 
+import tripMixin from '../../mixins/trip-mixin';
+import globalStore from '../../store/global'
+
 export default {
   name: "Create",
-  mixins: [validationMixin],
+  mixins: [validationMixin, tripMixin],
   data: function() {
     return {
       name: "",
@@ -106,21 +108,14 @@ export default {
     }
   },
    methods: {
-    create() {
+    onCreate() {
       const payload = {
         name: this.name,
         imagePath: this.imagePath,
         description: this.description,
-        creator: localStorage.getItem('userEmail')
+        creator: globalStore.user.email
       };
-       
-      axiosDb.post("/trips.json", payload)
-        .then(() => { 
-          this.$router.push("/list");
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      this.createTrip(payload);
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div  >
+  <div>
     <div class="container-fluid">
       <div class="row no-gutter">
         <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
@@ -9,23 +9,22 @@
               <div class="row">
                 <div class="col-md-9 col-lg-8 mx-auto">
                   <h3 class="login-heading mb-4">Edit this adventure!</h3>
-                  <form>
+                  <form @submit.prevent="onEdit">
                     <div class="form-label-group">
                       <input
+                        v-model="name"
                         name="name"
                         type="text"
                         id="inputName"
                         class="form-control"
                         placeholder="name"
-                        required
-                        autofocus
                       />
                       <label for="inputName">Name your next challenge</label>
                     </div>
 
                     <div class="form-label-group">
                       <input
-                        required
+                        v-model="imagePath"
                         type="text"
                         id="imagePath"
                         name="imagePath"
@@ -34,13 +33,13 @@
                       <label for="imagePath">Image URL</label>
 
                       <div class="card" style="width: 18rem;">
-                        <img src class="card-img-top" alt="..." />
+                        <img :src="imagePath" :alt="name" class="card-img-top" />
                       </div>
                     </div>
 
                     <div class="form-label-group">
                       <textarea
-                        required
+                        v-model="description"
                         type="text"
                         id="description"
                         class="form-control"
@@ -66,7 +65,47 @@
 </template>
 
 <script>
-export default {};
+import tripsMixin from "@/mixins/trip-mixin";
+
+export default {
+  data: function() {
+    return {
+      name: "",
+      imagePath: "",
+      description: ""
+    };
+  },
+  name: "Edit",
+  mixins: [tripsMixin],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  mounted() {
+    this.getData(this.id);
+    // console.log(this.getDataForEdit)
+  },
+  methods: {
+    async getData(id) {
+      const res = await this.getForEdit(id);
+      const oldData = res.data;
+      this.name = oldData.name;
+      this.imagePath = oldData.imagePath;
+      this.description = oldData.description;
+    },
+    onEdit() { 
+      const payload = {
+          name: this.name,
+          imagePath: this.imagePath,
+          description: this.description
+        }
+      
+      this.editTrip(payload, this.id);
+    }
+  }
+};
 </script>
 
 <style scoped>
