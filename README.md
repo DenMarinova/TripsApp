@@ -11,6 +11,7 @@ For the backend of the application is used Firebase.
 
 # The application features the following functionalites: 
 • Signin and Signup with email and password
+
 • Form and input fields validations - Vuelidate
 • The header has a two different views depending on if user is authenticated
 • Aplication use all of the CRUD operations, implementet with Axios.
