@@ -39,7 +39,7 @@ If user is creator of the trip he/she is able to edit the adventure with axios p
 Vue Router. Navigate with router links, nested routes, lazy loading, redirects, named routes. Protected private routes with Guards and redirect to signin page. 
  
  ## Project Architecture 
-"service layer" for HTTP requests, ordered components into subfolders and in a consistent matter.   
+"Service layer" for HTTP requests with Axios in mixins, ordered components into subfolders and in a consistent matter.   
 
 ## UI/UX
 Bootstrap for good UI and UX
