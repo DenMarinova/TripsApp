@@ -50,8 +50,7 @@ export default new VueRouter({
                     component: () => import( /* webpackChunkName: "Details" */ './components/trip/Details'),
                     props: true,
                     beforeEnter: authGuard
-                }
-
+                } 
             ]
         },
         {

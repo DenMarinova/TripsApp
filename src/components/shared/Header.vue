@@ -1,25 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-dark bg-dark">
     <router-link class="navbar-brand font-weight-bold" to="/">ADVENTURE</router-link>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarColor01"
-      aria-controls="navbarColor01"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-      <div class="ml-auto">
-        <ul class="navbar-nav">
+    
+   
+        <ul class="navbar-nav flex-row justify-content-around mr-3">
           <template v-if="!isLogged">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/signin">Sign In</router-link>
+            <li class="nav-item active">
+              <router-link class="nav-link mr-3" to="/signin">Sign In</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/signup">Sign Up</router-link>
@@ -38,14 +25,13 @@
             </span>
           </template>
         </ul>
-      </div>
-    </div>
+     
   </nav>
 </template>
 
-<script> 
+<script>
 import authMixin from "../../mixins/auth-mixin";
-import globalStore from "../../store/global"
+import globalStore from "../../store/global";
 
 export default {
   name: "Header",
@@ -56,7 +42,9 @@ export default {
   },
   mixins: [authMixin],
   methods: {
-    onLogout(){ this.logout() }
+    onLogout() {
+      this.logout();
+    }
   }
 };
 </script>
