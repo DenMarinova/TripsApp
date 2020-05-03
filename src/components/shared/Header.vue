@@ -15,10 +15,10 @@
 
           <template v-else>
             <li v-if="isLogged" class="nav-item">
-              <router-link class="nav-link" to="/list">Trips</router-link>
+              <router-link class="nav-link mr-3" to="/list">Trips</router-link>
             </li>
-            <li v-if="!isLogged" class="nav-item">
-              <router-link class="nav-link" to="/create">Create</router-link>
+            <li v-if="isLogged" class="nav-item">
+              <router-link class="nav-link mr-3" to="/create">Create</router-link>
             </li>
             <span>
               <a @click="onLogout" class="nav-link">Logout</a>

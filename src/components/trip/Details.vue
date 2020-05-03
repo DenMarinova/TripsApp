@@ -9,7 +9,7 @@
           <div class="card-body pt-0">
             <h5 class="card-title">{{trip.name}}</h5>
             <p class="card-text">{{trip.description}}</p>
-            <p class="card-text">{{trip.creator}}</p> 
+            <p class="card-text">{{trip.creator}}</p>
             <div class="row justify-content-md-center">
               <template v-if="isCreator">
                 <div class="col-sm-4">
@@ -19,7 +19,8 @@
                   >Edit</router-link>
                 </div>
                 <div class="col-sm-4">
-                  <button @click="onDelete"
+                  <button
+                    @click="onDelete"
                     class="btn btn-lg btn-danger btn-block text-uppercase font-weight-bold mb-2"
                     type="button"
                   >Delete</button>
@@ -67,16 +68,25 @@ export default {
   computed: {
     isCreator() {
       let tripCreator = this.trip.creator;
-      if(tripCreator) { tripCreator = tripCreator.toLowerCase()}
-      return tripCreator  === globalStore.user.email;
+      if (tripCreator) {
+        tripCreator = tripCreator.toLowerCase();
+      }
+      return tripCreator === globalStore.user.email;
     }
   },
   created() {
     this.getTripById(this.id);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
   },
   mixins: [tripsMixin],
   methods: {
-    onDelete() { this.deleteTrip(this.id) }
+    onDelete() {
+      this.deleteTrip(this.id);
+    }
   }
 };
 </script>
